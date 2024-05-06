@@ -7,8 +7,8 @@ return {
                 local gs = package.loaded.gitsigns
 
                 vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame, {})
+                vim.keymap.set('n', '<leader>hd', gs.diffthis)
 
---                ap('n', '<leader>tB', gs.toggle_current_line_blame)
             end
         });
     end

@@ -18,6 +18,12 @@ vim.keymap.set("n", "<leader>svwm", function()
     require("vim-with-me").StopVimWithMe()
 end)
 
+vim.api.nvim_set_keymap("n", "<C-W>,", ":vertical resize -10<CR>", {noremap=true})
+vim.api.nvim_set_keymap("n", "<C-W>.", ":vertical resize +10<CR>", {noremap=true})
+vim.keymap.set("n", "<leader>qq", ":q<CR>",
+  {silent = true, noremap = true}
+)
+
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
