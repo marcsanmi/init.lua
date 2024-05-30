@@ -1,6 +1,7 @@
 require("akerman.remap")
 require("akerman.set")
 require("akerman.lazy_init")
+require("akerman.statusline")
 
 local augroup = vim.api.nvim_create_augroup
 local AkermanGroup = augroup('akerman', {})
