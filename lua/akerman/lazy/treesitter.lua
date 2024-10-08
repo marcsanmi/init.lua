@@ -1,3 +1,16 @@
+local function setup_go_highlights()
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "go",
+        callback = function()
+            -- Match package names in import statements
+            vim.fn.matchadd("GoPackageName", [["\v(^|\s)import\s+(\([^)]*\)\s+)?\"?(\w+)"]], 10, -1)
+            
+            -- Match package names in selector expressions
+            vim.fn.matchadd("GoPackageName", [[\v<\w+>\.]], 10, -1)
+        end
+    })
+end
+
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -6,7 +19,7 @@ return {
             -- A list of parser names, or "all"
             ensure_installed = {
                 "vimdoc", "javascript", "typescript", "c", "lua", "rust",
-                "jsdoc", "bash",
+                "jsdoc", "bash", "go"
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -30,6 +43,11 @@ return {
                 -- Instead of true it can also be a list of languages
                 additional_vim_regex_highlighting = { "markdown" },
             },
+            query_linter = {
+                enable = true,
+                use_virtual_text = true,
+                lint_events = {"BufWrite", "CursorHold"},
+            },
         })
 
         local treesitter_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -42,5 +60,8 @@ return {
         }
 
         vim.treesitter.language.register("templ", "templ")
+
+        setup_go_highlights()
     end
 }
+
